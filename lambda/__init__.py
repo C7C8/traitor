@@ -13,16 +13,6 @@
 #  You should have received a copy of the GNU General Public License
 #  along with traitor.  If not, see <https://www.gnu.org/licenses/>.
 #
+import logging
 
-import json
-
-
-def handler(event, context):
-	print("request: {}".format(json.dumps(event)))
-	return {
-		"statusCode": 200,
-		"headers": {
-			"Content-Type": "text/plain"
-		},
-		"body": "Hello, world! This is {}".format(event[path])
-	}
+logging.basicConfig(level=logging.DEBUG)

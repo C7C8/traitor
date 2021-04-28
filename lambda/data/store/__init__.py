@@ -14,15 +14,7 @@
 #  along with traitor.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-import json
+from BarsDataStore import BarsDataStore
+from api_client import uses_alpaca_client
 
-
-def handler(event, context):
-	print("request: {}".format(json.dumps(event)))
-	return {
-		"statusCode": 200,
-		"headers": {
-			"Content-Type": "text/plain"
-		},
-		"body": "Hello, world! This is {}".format(event[path])
-	}
+__all__ = [BarsDataStore, uses_alpaca_client]

@@ -36,9 +36,16 @@ if __name__ == '__main__':
 		info(f"Processing {file.name}")
 		reader = csv.DictReader(file)
 		for company in reader:
-			info(f"Downloading historical data for {company['Symbol']}")
+			symbol = company["Symbol"]
+			if "^" in symbol or "/" in symbol:
+				warning(f"Invalid symbol {symbol}, skipping!")
+				continue
+			if symbol in store:
+				info(f"{symbol} already in store, skipping!")
+				continue
+			info(f"Downloading historical data for {symbol}")
 			try:
-				store.add_symbol(company["Symbol"])
+				store.add_symbol(symbol)
 			except:
-				warning(f"Failed to download data for {company['Symbol']}, skipping!")
+				warning(f"Failed to download data for {symbol}, skipping!")
 				continue

@@ -9,6 +9,6 @@ class CdkStack(core.Stack):
 
         hello_lambda = lambda_.Function(self, "HelloHandler",
                                         runtime=lambda_.Runtime.PYTHON_3_8,
-                                        code=lambda_.Code.asset('lambda'),
+                                        code=lambda_.Code.asset('lmbda'),
                                         handler="hello.handler")
         apigw.LambdaRestApi(self, 'test', handler=hello_lambda)

@@ -25,17 +25,18 @@ import pandas as pd
 import pytz
 from alpaca_trade_api.rest import TimeFrame
 
-from BarsDataStore import BarsDataStore
+from lmbda.data.store import BarsDataStore
 
 
 class PandasBarsDataStore(BarsDataStore, ABC):
 	"""Data store that stores data in a provided folder, in the form of bz2 pandas dataframes.
 	Dataframes are stored in a hierarchy of data_dir/symbol/[YEAR].pkl.gz """
 
-	def __init__(self, timeframe: TimeFrame, data_dir: Path):
+	def __init__(self, timeframe: TimeFrame, data_dir: str):
 		super().__init__(timeframe)
 		info(f"Initializing new pandas datastore on a {timeframe} timeframe at{data_dir}")
-		self.data_dir = data_dir
+		self.data_dir = Path(data_dir)
+		self.data_dir.mkdir(exist_ok=True)
 
 	def __contains__(self, symbol: str) -> bool:
 		return len(list((self.data_dir / symbol.upper()).rglob("*.pkl.gz"))) > 0

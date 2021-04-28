@@ -22,8 +22,7 @@ import pandas as pd
 import pytz
 from alpaca_trade_api.rest import TimeFrame, REST
 
-from api_client import uses_alpaca_client
-
+from .api_client import uses_alpaca_client
 
 class BarsDataStore(metaclass=abc.ABCMeta):
 	"""Interface for a bars datastore that's capable of holding data in different backings"""

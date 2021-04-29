@@ -31,7 +31,7 @@ if __name__ == '__main__':
 	args = parser.parse_args()
 	logging.basicConfig(format='%(asctime)s %(message)s', level=logging.INFO)
 
-	store = PandasBarsDataStore(data_dir=args.datastore, timeframe=TimeFrame.Hour)
+	store = PandasBarsDataStore(data_dir=args.datastore, timeframe=TimeFrame.Minute)
 	for file in args.files:
 		info(f"Processing {file.name}")
 		reader = csv.DictReader(file)
@@ -45,7 +45,7 @@ if __name__ == '__main__':
 				continue
 			info(f"Downloading historical data for {symbol}")
 			try:
-				store.add_symbol(symbol)
+				store.add(symbol)
 			except:
 				warning(f"Failed to download data for {symbol}, skipping!")
 				continue

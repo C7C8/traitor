@@ -6,7 +6,7 @@ authors = ["Sourec <tothemyers@gmail.com>"]
 license = "GPLv3"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = ">=3.9,<3.10"
 "aws-cdk.core" = "^1.100.0"
 "aws-cdk.aws-dynamodb" = "^1.100.0"
 "aws-cdk.aws-s3" = "^1.100.0"
@@ -16,6 +16,7 @@ alpaca-trade-api = "^1.2.0"
 pandas = "^1.2.4"
 scikit-learn = "^0.24.1"
 numpy = "^1.20.2"
+scipy = "^1.6.3"
 
 [tool.poetry.dev-dependencies]
 seaborn = "^0.11.1"
@@ -23,6 +24,7 @@ matplotlib = "^3.4.1"
 pytest = "^6.2.3"
 pytest-cov = "^2.11.1"
 pytest-dependency = "^0.5.1"
+jupyter = "^1.0.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

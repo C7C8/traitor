@@ -44,40 +44,40 @@ class BarsDataStore(metaclass=abc.ABCMeta):
 
 	def __getitem__(self, symbol: str) -> pd.DataFrame:
 		"""Get all data for a particular symbol"""
-		return self.get_bars_from_range(symbol)
+		return self.bars(symbol)
 
-	def __setitem__(self, symbol: str, data: pd.DataFrame):
+	def __setitem__(self, symbol: str, data: pd.DataFrame) -> None:
 		"""Update store with provided data"""
-		self.update_symbol_data(symbol, data)
+		self.update(symbol, data)
 
 	def __delete__(self, symbol: str) -> None:
 		"""Delete all data for the given symbol"""
-		self.delete_symbol_data(symbol)
+		self.remove(symbol)
 
 	@abc.abstractmethod
-	def get_all_stored_symbols(self) -> Set[str]:
+	def symbols(self) -> Set[str]:
 		"""Get a list of all symbols currently stored"""
 		raise NotImplementedError
 
 	@abc.abstractmethod
-	def get_bars_from_range(self, symbol: str, start: datetime.date = None,
-	                        end: datetime.date = None) -> pd.DataFrame:
+	def bars(self, symbol: str, start: datetime.date = None,
+	         end: datetime.date = None) -> pd.DataFrame:
 		"""Retrieve bars from the given date range. Returns all data if no range is provided. Only queries locally
 		cached data. If start is provided but end is not, returns all data until start, and vice versa."""
 		raise NotImplementedError
 
 	@abc.abstractmethod
-	def get_last_data_point(self, symbol: str) -> pd.DataFrame:
+	def last(self, symbol: str) -> pd.DataFrame:
 		"""Get the last data point in the store for the given symbol"""
 		raise NotImplementedError
 
 	@abc.abstractmethod
-	def update_symbol_data(self, symbol: str, data: pd.DataFrame) -> None:
+	def update(self, symbol: str, data: pd.DataFrame) -> None:
 		"""Update the store data for the given symbol with the provided data"""
 		raise NotImplementedError
 
 	@abc.abstractmethod
-	def delete_symbol_data(self, symbol: str) -> None:
+	def remove(self, symbol: str) -> None:
 		"""Delete all data for a symbol"""
 		raise NotImplementedError
 
@@ -96,11 +96,11 @@ class BarsDataStore(metaclass=abc.ABCMeta):
 		now = pd.Timestamp("now", tz=pytz.utc)
 		# For each symbol, calculate the time delta and get the most recent
 		for symbol in symbols:
-			delta: datetime.timedelta = now - self.get_last_data_point(symbol).index.to_series()[0]
+			delta: datetime.timedelta = now - self.last(symbol).index.to_series()[0]
 			data = self._fetch_all_symbol_history(symbol, delta=delta)
-			self.update_symbol_data(symbol, data)
+			self.update(symbol, data)
 
 	@abc.abstractmethod
-	def add_symbol(self, symbol: str) -> pd.DataFrame:
+	def add(self, symbol: str) -> pd.DataFrame:
 		"""Add a symbol to the store, querying all available data for it and returning the results."""
 		raise NotImplementedError

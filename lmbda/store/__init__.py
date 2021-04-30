@@ -14,7 +14,7 @@
 #  along with traitor.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from lmbda.data.store.BarsDataStore import BarsDataStore
-from lmbda.data.store.api_client import uses_alpaca_client
+from lmbda.store.BarsDataStore import BarsDataStore
+from lmbda.store.api_client import uses_alpaca_client
 
 __all__ = [BarsDataStore, uses_alpaca_client]

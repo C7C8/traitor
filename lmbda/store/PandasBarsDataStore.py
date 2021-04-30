@@ -25,7 +25,7 @@ import pandas as pd
 import pytz
 from alpaca_trade_api.rest import TimeFrame
 
-from lmbda.data.store import BarsDataStore
+from lmbda.store import BarsDataStore
 
 
 class PandasBarsDataStore(BarsDataStore, ABC):

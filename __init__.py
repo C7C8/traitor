@@ -13,8 +13,3 @@
 #  You should have received a copy of the GNU General Public License
 #  along with traitor.  If not, see <https://www.gnu.org/licenses/>.
 #
-
-from lmbda.data.store import uses_alpaca_client
-
-__all__ = [uses_alpaca_client]
-
